@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>For Mohcine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root{
+    --bg1:#040010;
+    --bg2:#13002b;
+    --pink:#ff4d6d;
+    --pink2:#ff85a1;
+    --cyan:#7df7ff;
+    --gold:#ffd36b;
+    --white:#ffffff;
+    --shadow: 0 30px 90px rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, var(--pink), var(--bg1));
+    color: var(--white);
+    overflow:hidden;
+    perspective: 1200px;
+  }
+
+  .bg{
+    position:fixed;
+    inset:0;
+    background: linear-gradient(120deg, var(--bg1), var(--bg2));
+  }
+
+  .stars{
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.45), rgba(255,255,255,0) 45%),
+      radial-gradient(circle at 80% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%),
+      radial-gradient(circle at 50% 80%, rgba(255,255,255,0.2), rgba(255,255,255,0) 45%);
+    opacity:0.8;
+    animation: stars 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes stars{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-25px);}
+  }
+
+  .light{
+    position:fixed;
+    inset:-50%;
+    background: radial-gradient(circle at 20% 30%, rgba(255,77,109,0.7), rgba(0,0,0,0) 60%);
+    animation: light 8s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes light{
+    0%,100%{transform: translate(0,0);}
+    50%{transform: translate(10%, -5%);}
+  }
+
+  .center{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    position:relative;
+    z-index:2;
+  }
+
+  .glass{
+    width: min(900px, 95%);
+    border-radius: 30px;
+    padding: 35px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.20);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    transform-style: preserve-3d;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform: translateY(0px) rotateX(0deg) rotateY(0deg);}
+    50%{transform: translateY(-12px) rotateX(1deg) rotateY(2deg);}
+  }
+
+  h1{
+    margin:0 0 12px;
+    font-size: 2.4rem;
+    letter-spacing: 0.5px;
+  }
+
+  p{
+    margin:0 0 18px;
+    line-height:1.6;
+    color: rgba(255,255,255,0.9);
+    font-size: 1.05rem;
+  }
+
+  input{
+    width:100%;
+    padding: 14px 16px;
+    border-radius: 999px;
+    border:1px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.25);
+    color:white;
+    outline:none;
+    font-size:16px;
+  }
+
+  button{
+    margin-top:15px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border:none;
+    cursor:pointer;
+    background: linear-gradient(90deg, var(--pink), var(--pink2));
+    color:white;
+    font-weight:700;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+    transition: transform .2s ease, filter .2s ease;
+  }
+  button:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+  }
+
+  .hidden{display:none;}
+  .progress{
+    height: 8px;
+    background: rgba(255,255,255,0.12);
+    border-radius:999px;
+    overflow:hidden;
+    margin: 18px 0 22px;
+  }
+  .progress > div{
+    height:100%;
+    width:0;
+    background: linear-gradient(90deg, var(--pink), var(--cyan));
+    transition: width .4s ease;
+  }
+
+  /* 3D Cube */
+  .cube{
+    width: 260px;
+    height: 260px;
+    margin: 20px auto;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 12s infinite linear;
+  }
+  @keyframes rotateCube{
+    from{transform: rotateX(0deg) rotateY(0deg);}
+    to{transform: rotateX(360deg) rotateY(360deg);}
+  }
+  .cube div{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 1.2rem;
+    backface-visibility: hidden;
+  }
+  .cube .front{transform: translateZ(130px);}
+  .cube .back{transform: rotateY(180deg) translateZ(130px);}
+  .cube .right{transform: rotateY(90deg) translateZ(130px);}
+  .cube .left{transform: rotateY(-90deg) translateZ(130px);}
+  .cube .top{transform: rotateX(90deg) translateZ(130px);}
+  .cube .bottom{transform: rotateX(-90deg) translateZ(130px);}
+
+  .btns{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:15px;
+  }
+
+  .love-game{
+    margin-top: 20px;
+  }
+
+  .love-game button{
+    width:100%;
+    background: linear-gradient(90deg, var(--gold), var(--pink));
+  }
+
+  .love-count{
+    margin-top:12px;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .qr{
+    margin-top:20px;
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.25);
+    border:1px solid rgba(255,255,255,0.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+  }
+
+  @media (max-width:600px){
+    h1{font-size:1.9rem;}
+    .cube{width: 200px; height: 200px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="light"></div>
+<div class="stars"></div>
+
+<div id="login" class="center">
+  <div class="glass">
+    <h1>🔐 دخول خاص</h1>
+    <p>هذه التجربة خاصة بمحض اسمك فقط.</p>
+    <input id="pass" type="password" placeholder="أدخل كلمة السر">
+    <button onclick="checkPass()">دخول</button>
+  </div>
+</div>
+
+<div id="site" class="hidden center">
+  <div class="glass">
+    <h1 id="typing"></h1>
+    <p id="sub"></p>
+
+    <div class="progress">
+      <div id="bar"></div>
+    </div>
+
+    <div class="cube" id="cube">
+      <div class="front">💖</div>
+      <div class="back">🌙</div>
+      <div class="right">✨</div>
+      <div class="left">🌟</div>
+      <div class="top">💫</div>
+      <div class="bottom">❤️</div>
+    </div>
+
+    <div class="btns">
+      <button onclick="nextStep()">التالي</button>
+      <button onclick="toggleHearts()">تفعيل قلوب</button>
+    </div>
+
+    <div class="love-game hidden" id="loveGame">
+      <button onclick="loveClick()">اضغط على القلب 💗</button>
+      <div class="love-count" id="loveCount">عدد النبضات: 0</div>
+    </div>
+
+    <div class="qr hidden" id="qrBox">
+      <div class="box"></div>
+      <div>
+        <p style="margin:0;font-weight:700;">QR Code</p>
+        <p style="margin:0;font-size:12px;opacity:0.8;">Scan to open</p>
+      </div>
+    </div>
+
+    <p style="margin-top:25px;">— فاطمة الزهراء 💻❤️</p>
+  </div>
+</div>
+
+<script>
+let step = 0;
+let heartsOn = false;
+let loveCount = 0;
+
+function checkPass(){
+  const pass = document.getElementById("pass").value;
+  if(pass === "mohcine"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("site").classList.remove("hidden");
+    start();
+  } else {
+    alert("كلمة السر غير صحيحة");
+  }
+}
+
+function start(){
+  typeText("❤️ مرحباً Mohcine ❤️", "typing");
+  setTimeout(()=>{ typeText("هذه تجربة صممتها لك من قلبي 💖", "sub"); }, 1200);
+  setProgress(0);
+}
+
+function typeText(txt, id){
+  const el = document.getElementById(id);
+  el.innerHTML="";
+  let i=0;
+  const t = setInterval(()=>{
+    el.innerHTML += txt[i];
+    i++;
+    if(i>=txt.length) clearInterval(t);
+  }, 60);
+}
+
+function setProgress(v){
+  document.getElementById("bar").style.width = v + "%";
+}
+
+function nextStep(){
+  step++;
+  if(step==1){
+    setProgress(30);
+    typeText("🌟 أنت الأفضل في حياتي", "typing");
+    document.getElementById("sub").innerText="كل شيء صنعته من أجلك…";
+  }
+  if(step==2){
+    setProgress(60);
+    typeText("✨ هذه ليست صفحة عادية", "typing");
+    document.getElementById("sub").innerText="بل تجربة حب صغيرة.";
+    document.getElementById("loveGame").classList.remove("hidden");
+  }
+  if(step==3){
+    setProgress(100);
+    typeText("🚀 انتهينا!", "typing");
+    document.getElementById("sub").innerText="هذه هدية صغيرة من فاطمة الزهراء 💖";
+    document.getElementById("qrBox").classList.remove("hidden");
+  }
+}
+
+function toggleHearts(){
+  heartsOn = !heartsOn;
+  if(heartsOn){
+    createHearts();
+  }
+}
+
+function createHearts(){
+  if(!heartsOn) return;
+  const h = document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.position="fixed";
+  h.style.left=Math.random()*100+"vw";
+  h.style.top="100vh";
+  h.style.fontSize=(Math.random()*18+18)+"px";
+  h.style.animation="float 7s linear forwards";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+  setTimeout(createHearts, 300);
+}
+
+function loveClick(){
+  loveCount++;
+  document.getElementById("loveCount").innerText="عدد النبضات: "+loveCount;
+}
+</script>
+
+</body>
+</html>
